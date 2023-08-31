@@ -1,0 +1,40 @@
+name: Django CI/CD
+on:
+  push:
+    branches:
+      - main # specify your main branch herejobs:
+  build:
+
+    runs-on: ubuntu-latest    
+    services:
+      postgres:
+        image: postgres:latest
+
+        env:
+          POSTGRES_USER: postgres
+          POSTGRES_PASSWORD: password
+          POSTGRES_DB: mydb
+
+        ports:
+          - 5432:5432    
+      steps:
+    - name: Checkout code
+      uses: actions/checkout@v2  
+
+     - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x' # specify the Python version   
+      - name: Install Dependencies
+      run: pip install -r requirements.txt  
+
+        - name: Run Migrations
+      run: python manage.py migrate 
+        
+       - name: Run Tests
+      run: python manage.py test
+
+
+
+
+
