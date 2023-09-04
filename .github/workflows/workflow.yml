@@ -32,7 +32,7 @@ jobs:
         python3 manage.py runserver
     - name: run pre-commit
       run: |
-          pip install pre-commit
-          pre-commit run --all-files
+        pip install pre-commit
+        pre-commit run --all-files
 
 
