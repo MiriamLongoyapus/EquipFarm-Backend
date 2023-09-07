@@ -2,6 +2,6 @@
 # db.sqlite3/
 # myenv/
 
+myenv/
+/venv
 db.sqlite3
-__pycache__
-myenv_
