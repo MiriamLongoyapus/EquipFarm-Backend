@@ -1,11 +1,8 @@
 
 from django.db import models
 
-class Category(models.Model):
-    name = models.CharField(max_length=32)
-
 class Catalog(models.Model):
     name = models.CharField(max_length=32)
     description = models.TextField()  
-    category = models.ForeignKey(Category, on_delete=models.CASCADE)  
+    # category = models.ForeignKey(Category, on_delete=models.CASCADE)  
     image = models.ImageField(upload_to='catalog_images/')  
