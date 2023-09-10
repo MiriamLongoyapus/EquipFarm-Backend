@@ -1,8 +1,7 @@
 from rest_framework import serializers
-from catalog.models import  Catalog
+from catalogue.models import  Catalogue
 
-
-class CatalogSerializer(serializers.ModelSerializer):
+class CatalogueSerializer(serializers.ModelSerializer):
     class Meta:
-        model = Catalog
+        model = Catalogue
         fields = '__all__'
