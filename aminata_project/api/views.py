@@ -43,7 +43,7 @@ class CatalogueDetailView(APIView):
     def delete(self,request,id,format=None):
         Catalogue=Catalogue.objects.get(id=id)
         Catalogue.delete()
-        return Response("catalogue successfully deleted",status=status.HTTP_204_NO_CONTENT)
+        return Response("catalogue successf deleted",status=status.HTTP_204_NO_CONTENT)
    
 
  
