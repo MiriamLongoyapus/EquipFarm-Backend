@@ -1,7 +1,15 @@
-from rest_framework import serializers
-from booking.models import Booking
 
-class BookingSerializer(serializers.ModelSerializer):
+
+
+from rest_framework import serializers
+from Bookings.models import Bookings
+
+class BookingsSerializer(serializers.ModelSerializer):
    class Meta:
-       model = Booking
+       model = Bookings
        fields = "__all__" 
+
+
+
+
+
