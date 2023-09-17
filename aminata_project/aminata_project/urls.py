@@ -32,12 +32,18 @@ schema_view = get_schema_view(
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
+from django.urls import include, path
+
+from django.urls import include, path
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include('api.urls')),
+    path('api/', include("api.urls")),
     path('aminata/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('aminata/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 ]
+
+
+
 
 
