@@ -37,6 +37,10 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
+    'api',
+    'catalogue',
+    'drf_yasg'
 ]
 
 MIDDLEWARE = [
@@ -83,7 +87,6 @@ DATABASES = {
         'PORT': '5432',            
     }
 }
-
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
