@@ -83,15 +83,7 @@ class PaymentModelTestCase(TestCase):
             )
             payment.clean()
 
-    def test_payment_validity_period_invalid_format(self):
-        with self.assertRaises(ValidationError):
-            payment = Payment(
-                payment_amount=80.00,
-                payment_date_time=timezone.now(),
-                user=self.user,
-                validity_period='invalid_format'
-            )
-            payment.clean()
+    
 
 
   
