@@ -6,7 +6,7 @@ from django.db import models
 class Bookings(models.Model):
 #     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
 #     equipment = models.ForeignKey(Equipment, on_delete=models.CASCADE)
-    customer_name = models.CharField(max_length=32)
+    customer_name = models.ForeignKey(Customer, on_delete=models.CASCADE)
     equipment_name = models.CharField(max_length=32)
     equipment_category = models.CharField(max_length=32)
     duration = models.DurationField()
