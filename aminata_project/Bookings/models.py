@@ -1,6 +1,6 @@
 
 from django.db import models
-from users.models import CustomUser 
+# from users.models import CustomUser 
 
 
 class Bookings(models.Model):
