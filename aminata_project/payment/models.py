@@ -7,7 +7,7 @@ from django.utils import timezone
 class Payment(models.Model):
     payment_amount = models.DecimalField(max_digits=10, decimal_places=2)
     payment_date_time = models.DateTimeField()
-    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='payment_payments')  
+    # CustomUser = models.ForeignKey(CustomUser, on_delete=models.CASCADE, related_name='payment_payments')  
     validity_period = models.TimeField()
     
     def __str__(self):
@@ -18,4 +18,3 @@ class Payment(models.Model):
             raise ValidationError("Payment amount cannot be negative.")
         if self.payment_date_time > timezone.now():
             raise ValidationError("Payment date cannot be in the future.")
-  

@@ -2,7 +2,8 @@ from django.contrib import admin
 from django.contrib import admin
 from.models import Payment
 
+
 class PaymentAdmin (admin.ModelAdmin):
-    list_display = ("user","payment_date_time", "payment_amount", "validity_period")
+    list_display = ("payment_date_time", "payment_amount", "validity_period")
 
 admin.site.register(Payment, PaymentAdmin) 
