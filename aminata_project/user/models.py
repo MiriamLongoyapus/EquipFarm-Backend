@@ -33,5 +33,4 @@ class Farmer(models.Model):
     phone_number = models.CharField(max_length=20)
     location = models.CharField(max_length=255, default="Unknown")
 
-    # farm_size = models.IntegerField() 
-    # crops_grown = models.TextField()
+   

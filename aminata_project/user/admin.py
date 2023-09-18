@@ -20,4 +20,3 @@ class SupplierAdmin(admin.ModelAdmin):
 class FarmerAdmin(admin.ModelAdmin):
         list_display = ('user','phone_number','location')
 
-    # list_display = ('user', 'farm_size', 'crops_grown')

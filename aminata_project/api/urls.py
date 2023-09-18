@@ -8,4 +8,4 @@ urlpatterns = [
     path("farmers/login/", FarmerLoginView.as_view(), name="farmer-login"),
     path("suppliers/register/", SupplierRegistrationView.as_view(), name="supplier-registration"),
     path("suppliers/login/", SupplierLoginView.as_view(), name="supplier-login"),
-]
+]    
