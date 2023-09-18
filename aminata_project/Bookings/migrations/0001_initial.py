@@ -15,7 +15,7 @@ class Migration(migrations.Migration):
             name='Bookings',
             fields=[
                 ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('customer_name', models.ForeignKey(Customer, on_delete=models.CASCADE,null=True)),
+                ('customer_name', models.CharField(max_length=32)),
                 ('equipment_name', models.CharField(max_length=32)),
                 ('equipment_category', models.CharField(max_length=32)),
                 ('duration', models.DurationField()),
@@ -23,3 +23,4 @@ class Migration(migrations.Migration):
             ],
         ),
     ]
+ 
