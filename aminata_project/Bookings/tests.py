@@ -6,7 +6,7 @@ class BookingsModelTest(TestCase):
     @classmethod
     def setUpTestData(cls):
         cls.booking = Bookings.objects.create(
-            customer_name="John Doe",
+            customer_name="Mercy Cheptoo",
             equipment_name="Tractor",
             equipment_category="Farm category",
             duration=timedelta(hours=2),
