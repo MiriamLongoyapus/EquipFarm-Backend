@@ -1,97 +1,146 @@
-from django.urls import path
-from django.contrib.auth import login
-from rest_framework import status
-from rest_framework.views import APIView
+
 from rest_framework.response import Response
-from rest_framework.decorators import api_view, permission_classes
-from rest_framework.permissions import IsAuthenticated
+from rest_framework.decorators import api_view
+from .serializers import RegistrationSerializer
 from rest_framework.authtoken.models import Token
-from user.models import CustomUser, Farmer, Supplier  
-from .serializers import CustomUserSerializer, FarmerSerializer, SupplierSerializer  
-from django.contrib.auth.models import User
+from rest_framework import status
 from django.contrib.auth import authenticate
+from user.models import CustomUser  
+from rest_framework.views import APIView
+from rest_framework import generics
+from rest_framework.permissions import IsAuthenticated
+from django.contrib.auth.decorators import permission_required
+from django.contrib.auth import get_user_model
+from rest_framework import serializers
+from user.models import Permission 
+from django.views.decorators.csrf import csrf_exempt
+from rest_framework import status, generics
 
 
 
-class CustomUserListView(APIView):
+User = get_user_model()
+
+class UserListView(APIView):
     def get(self, request):
-        users = CustomUser.objects.all()  
-        serializer = CustomUserSerializer(users, many=True)  
+        users = CustomUser.objects.all()
+        serializer = RegistrationSerializer(users, many=True)  
         return Response(serializer.data)
+
+
+class UserRegistrationView(generics.CreateAPIView):
     def post(self, request):
-        serializer = UserSerializer(data=request.data)
+        data = request.data
+        serializer = RegistrationSerializer(data=data)  
+       
+        
         if serializer.is_valid():
-            serializer.save()
+            user = serializer.save()
+            
+        
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-class CustomUserDetailView(APIView):
-    def get(self, request, id, format=None):
-        user = User.objects.get(id=id)
-        serializer = UserSerializer(user)
-        return Response(serializer.data)
-    def put(self, request, id, format=None):
-        user = User.objects.get(id=id)
-        serializer = UserSerializer(user, data=request.data)
+
+class UserLoginView(APIView):
+    def post(self, request):
+        serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            serializer.save()
-            return Response(serializer.data, status=status.HTTP_200_OK)
-        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-    def delete(self, request, id, format=None):
-        user = User.objects.get(id=id)
-        user.delete()
-        return Response("User deleted", status=status.HTTP_204_NO_CONTENT)
+            user = authenticate(
+                request,
+                username=serializer.validated_data['username'],
+                phone_number=serializer.validated_data['phone_number']
+            )
+            if user is not None and user.roles.filter(name='Farmer').exists():
+                token, _ = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key}, status=status.HTTP_200_OK)
+        return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
 
 
-
-class FarmerRegistrationView(APIView):
-    def post(self, request):
-        user = request.data.get('user')
-        phone_number = request.data.get('phone_number')
-        location = request.data.get('location')
-
-        if Farmer.objects.filter(user=user).exists():
-            return Response({'message': 'Username already exists'}, status=status.HTTP_409_CONFLICT)
-
-        farmer = Farmer.objects.create(user=user, phone_number=phone_number, location=location)
-        return Response({'message': 'Registration successful'}, status=status.HTTP_201_CREATED)
-
-
-class FarmerLoginView(APIView):
-    def post(self, request):
-        user = request.data.get('user')
-        phone_number = request.data.get('phone_number')
-
-        try:
-            farmer = Farmer.objects.get(user=user, phone_number=phone_number)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-        except Farmer.DoesNotExist:
-            return Response({'message': 'Invalid username or phone number'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
+        
 
 class SupplierRegistrationView(APIView):
     def post(self, request):
-        user = request.data.get('user')
-        company_name = request.data.get('company_name')
-        products_offered = request.data.get('products_offered')
+        data = request.data
+        serializer = RegistrationSerializer(data=data) 
+        # phone_number = models.CharField(max_length=20)
+        company_name = models.CharField(max_length=100)
+        products_offered = models.TextField(max_length=100)
+        # location = models.CharField(max_length=100)
+        
+        if serializer.is_valid():
+            user = serializer.save()
+            
+            supplier_role, _ = Role.objects.get_or_create(name="Supplier")
+            user.roles.add(supplier_role)
+            
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-        if Supplier.objects.filter(user=user).exists():
-            return Response({'message': 'Username already exists'}, status=status.HTTP_409_CONFLICT)
-
-        supplier = Supplier.objects.create(user=user, company_name=company_name, products_offered=products_offered)
-        return Response({'message': 'Registration successful'}, status=status.HTTP_201_CREATED)
-
-
-
+# class FarmerLoginView(APIView):
+#     def post(self, request):
+#         serializer = LoginSerializer(data=request.data)
+#         if serializer.is_valid():
+#             user = authenticate(
+#                 request,
+#                 username=serializer.validated_data['username'],
+#                 phone_number=serializer.validated_data['phone_number']
+#             )
+#             if user is not None and user.roles.filter(name='Farmer').exists():
+#                 token, _ = Token.objects.get_or_create(user=user)
+#                 return Response({'token': token.key}, status=status.HTTP_200_OK)
+#         return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
 
 class SupplierLoginView(APIView):
     def post(self, request):
-        user = request.data.get('user')
-        company_name= request.data.get('company_name')
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            user = authenticate(
+                request,
+                username=serializer.validated_data['username'],
+                password=serializer.validated_data['password']
+            )
+            if user is not None and user.roles.filter(name='Supplier').exists():
+                token, _ = Token.objects.get_or_create(user=user)
+                return Response({'token': token.key}, status=status.HTTP_200_OK)
+        return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
 
-        try:
-            supplier = Supplier.objects.get(user=user, company_name=company_name)
-            return Response({'message': 'Login successful'}, status=status.HTTP_200_OK)
-        except Supplier.DoesNotExist:
-            return Response({'message': 'Invalid username or phone number'}, status=status.HTTP_401_UNAUTHORIZED)
+# The following views remain unchanged:
+# - UserRegistrationListView
+# - UserRegistrationUpdateView
+# - UserRegistrationDeleteView
+
+# from rest_framework import serializers
+# from user.models import CustomUser
+
+# class RegistrationSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = CustomUser
+#         fields = ['id', 'username', 'phone_number', 'location']
+
+# class UserRegistrationView(generics.CreateAPIView):
+#     def post(self, request):
+#         serializer = RegistrationSerializer(data=request.data)  # Use RegistrationSerializer
+#         if serializer.is_valid():
+#             user = serializer.save()
             
+#             farmer_role, _ = Role.objects.get_or_create(name="Farmer")
+#             user.roles.add(farmer_role)
+            
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+# class SupplierRegistrationView(APIView):
+#     def post(self, request):
+#         serializer = RegistrationSerializer(data=request.data)  # Use RegistrationSerializer
+        
+#         if serializer.is_valid():
+#             user = serializer.save()
+            
+#             supplier_role, _ = Role.objects.get_or_create(name="Supplier")
+#             user.roles.add(supplier_role)
+            
+#             return Response(serializer.data, status=status.HTTP_201_CREATED)
+        
+#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

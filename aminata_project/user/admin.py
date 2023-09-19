@@ -1,22 +1,44 @@
 from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
-from .models import CustomUser, Supplier, Farmer
+from .models import CustomUser
 
+
+
+
+# Define a custom admin class for your CustomUser model
 class CustomUserAdmin(UserAdmin):
-    list_display = ('username', 'email', 'first_name', 'last_name', 'phone_number', 'location')
-    fieldsets = UserAdmin.fieldsets + (
-        ('Custom Fields', {
-            'fields': ('phone_number', 'location'),
-        }),
-    )
+    list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
+    list_filter = ('is_active', 'is_staff', 'roles')
 
-admin.site.register(CustomUser, CustomUserAdmin)
+    # Customize the fields displayed for different roles
+    def get_fieldsets(self, request, obj=None):
+        if obj is None:
+            return super().get_fieldsets(request, obj)
 
-@admin.register(Supplier)
-class SupplierAdmin(admin.ModelAdmin):
-    list_display = ('user', 'company_name', 'products_offered')
+        if obj.is_farmer:
+            fieldsets = (
+                (None, {'fields': ('username', 'phone_number')}),
+                ('Personal Info', {'fields': ('first_name', 'last_name','location', 'phone_number')}),
+                ('Permissions', {'fields': ('is_active', 'is_staff', 'groups', 'user_permissions', 'roles')}),
+                ('Important dates', {'fields': ('last_login', 'date_joined')}),
+            )
+        elif obj.is_supplier:
+            fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                ('Personal Info', {'fields': ('first_name', 'last_name', 'email', 'location', 'company_name', 'products_offered')}),
+                ('Permissions', {'fields': ('is_active', 'is_staff', 'groups', 'user_permissions', 'roles')}),
+                ('Important dates', {'fields': ('last_login', 'date_joined')}),
+            )
+        else:
+            fieldsets = (
+                (None, {'fields': ('username', 'password')}),
+                ('Personal Info', {'fields': ('first_name', 'last_name', 'email', 'location')}),
+                ('Permissions', {'fields': ('is_active', 'is_staff', 'groups', 'user_permissions', 'roles')}),
+                ('Important dates', {'fields': ('last_login', 'date_joined')}),
+            )
+        return fieldsets
 
-@admin.register(Farmer)
-class FarmerAdmin(admin.ModelAdmin):
-        list_display = ('user','phone_number','location')
-
+# Register the CustomUserAdmin class
+admin.site.register(CustomUser)
+# admin.site.register(Farmer)  # Register the Farmer model
+# admin.site.register(Supplier)  # Register the Supplier model
