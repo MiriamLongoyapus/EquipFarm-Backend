@@ -50,11 +50,11 @@ urlpatterns = [
     path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
          name='schema-redoc'),
 
-from django.urls import include, path
+# from django.urls import path
+# from django.urls import path,include
 
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include("api.urls"))
-    
-
+# urlpatterns = [
+#     path('admin/', admin.site.urls),
+#     path('api/', include('api.urls')),
+# ]
 ]
