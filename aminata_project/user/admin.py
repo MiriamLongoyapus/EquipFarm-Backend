@@ -2,15 +2,10 @@ from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser
 
-
-
-
-# Define a custom admin class for your CustomUser model
 class CustomUserAdmin(UserAdmin):
     list_display = ('username', 'email', 'first_name', 'last_name', 'is_active', 'is_staff')
     list_filter = ('is_active', 'is_staff', 'roles')
 
-    # Customize the fields displayed for different roles
     def get_fieldsets(self, request, obj=None):
         if obj is None:
             return super().get_fieldsets(request, obj)
@@ -38,7 +33,5 @@ class CustomUserAdmin(UserAdmin):
             )
         return fieldsets
 
-# Register the CustomUserAdmin class
 admin.site.register(CustomUser)
-# admin.site.register(Farmer)  # Register the Farmer model
-# admin.site.register(Supplier)  # Register the Supplier model
+
