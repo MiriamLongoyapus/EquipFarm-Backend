@@ -41,6 +41,9 @@ INSTALLED_APPS = [
     'api',
     'catalogue',
     'drf_yasg'
+    
+   
+    
 ]
 
 MIDDLEWARE = [

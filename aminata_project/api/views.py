@@ -45,4 +45,3 @@ class CatalogueDetailView(APIView):
         catalogue.delete()
         return Response("catalogue deleted succefully",status=status.HTTP_204_NO_CONTENT)
    
-    
