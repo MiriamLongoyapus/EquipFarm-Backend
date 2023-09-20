@@ -35,3 +35,4 @@ class BookingsModelTest(TestCase):
     def test_booking_date_field(self):
         booking = Bookings.objects.get(id=self.booking.id)
         self.assertIsInstance(booking.booking_date, datetime)
+

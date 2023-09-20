@@ -39,9 +39,9 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'Bookings',
     'rest_framework',
-    'drf_yasg',
+    # 'drf_yasg',
     'api',
-    'catalogue',
+    
 ]
 
 MIDDLEWARE = [
