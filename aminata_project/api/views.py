@@ -1,146 +1,134 @@
-
-from rest_framework.response import Response
-from rest_framework.decorators import api_view
-from .serializers import RegistrationSerializer
+from .serializers import CommonRegistrationSerializer
 from rest_framework.authtoken.models import Token
 from rest_framework import status
 from django.contrib.auth import authenticate
-from user.models import CustomUser  
+from users.models import CustomUser
 from rest_framework.views import APIView
 from rest_framework import generics
 from rest_framework.permissions import IsAuthenticated
 from django.contrib.auth.decorators import permission_required
+from users.models import Role
 from django.contrib.auth import get_user_model
-from rest_framework import serializers
-from user.models import Permission 
-from django.views.decorators.csrf import csrf_exempt
-from rest_framework import status, generics
+from .serializers import FarmerRegistrationSerializer, SupplierRegistrationSerializer, LoginSerializer
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from users.models import Role
+from .serializers import FarmerRegistrationSerializer
+from django.contrib.auth import get_user_model
+from django.db.models import Q  
 
 
 
 User = get_user_model()
 
-class UserListView(APIView):
-    def get(self, request):
-        users = CustomUser.objects.all()
-        serializer = RegistrationSerializer(users, many=True)  
-        return Response(serializer.data)
-
-
-class UserRegistrationView(generics.CreateAPIView):
+class FarmerRegistrationView(APIView):
     def post(self, request):
         data = request.data
-        serializer = RegistrationSerializer(data=data)  
-       
+        username = data.get('username')  
+        
+        try:
+            user = CustomUser.objects.get(username=username)
+            return Response({'error': 'User with this username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            pass 
+        
+        serializer = FarmerRegistrationSerializer(data=data)
         
         if serializer.is_valid():
-            user = serializer.save()
-            
-        
+            farmer = serializer.save()
+            farmer_role, _ = Role.objects.get_or_create(name="Farmer")
+            farmer.roles.add(farmer_role)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-class UserLoginView(APIView):
+class FarmerLoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = authenticate(
-                request,
-                username=serializer.validated_data['username'],
-                phone_number=serializer.validated_data['phone_number']
-            )
-            if user is not None and user.roles.filter(name='Farmer').exists():
-                token, _ = Token.objects.get_or_create(user=user)
-                return Response({'token': token.key}, status=status.HTTP_200_OK)
-        return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
-
-
+            username = serializer.validated_data.get('username')
+            phone_number = serializer.validated_data.get('phone_number')
+            
+            try:
+                user = CustomUser.objects.get(username=username)
+                if user.phone_number == phone_number:
+                 
+                    return Response({'message': 'Successfully logged in'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            except CustomUser.DoesNotExist:
+                return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
         
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+
+
 
 class SupplierRegistrationView(APIView):
     def post(self, request):
         data = request.data
-        serializer = RegistrationSerializer(data=data) 
-        # phone_number = models.CharField(max_length=20)
-        company_name = models.CharField(max_length=100)
-        products_offered = models.TextField(max_length=100)
-        # location = models.CharField(max_length=100)
+        username = data.get('username') 
+        
+        try:
+            user = CustomUser.objects.get(username=username)
+            return Response({'error': 'User with this username already exists'}, status=status.HTTP_400_BAD_REQUEST)
+        except CustomUser.DoesNotExist:
+            pass  
+        
+        serializer = SupplierRegistrationSerializer(data=data)
         
         if serializer.is_valid():
-            user = serializer.save()
-            
+            supplier = serializer.save()
             supplier_role, _ = Role.objects.get_or_create(name="Supplier")
-            user.roles.add(supplier_role)
-            
+            supplier.roles.add(supplier_role)
             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-# class FarmerLoginView(APIView):
-#     def post(self, request):
-#         serializer = LoginSerializer(data=request.data)
-#         if serializer.is_valid():
-#             user = authenticate(
-#                 request,
-#                 username=serializer.validated_data['username'],
-#                 phone_number=serializer.validated_data['phone_number']
-#             )
-#             if user is not None and user.roles.filter(name='Farmer').exists():
-#                 token, _ = Token.objects.get_or_create(user=user)
-#                 return Response({'token': token.key}, status=status.HTTP_200_OK)
-#         return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
+
 
 class SupplierLoginView(APIView):
     def post(self, request):
         serializer = LoginSerializer(data=request.data)
         if serializer.is_valid():
-            user = authenticate(
-                request,
-                username=serializer.validated_data['username'],
-                password=serializer.validated_data['password']
-            )
-            if user is not None and user.roles.filter(name='Supplier').exists():
+            username = serializer.validated_data.get('username')
+            phone_number = serializer.validated_data.get('phone_number')
+            
+            try:
+                user = CustomUser.objects.get(username=username)
+                if user.phone_number == phone_number:
+                  
+                    return Response({'message': 'Successfully logged in'}, status=status.HTTP_200_OK)
+                else:
+                    return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+            except CustomUser.DoesNotExist:
+                return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+
+class LoginView(APIView):
+    def post(self, request, user_type):
+        serializer = LoginSerializer(data=request.data)
+        if serializer.is_valid():
+            username = serializer.validated_data.get('username')
+            phone_number = serializer.validated_data.get('phone_number')
+            try:
+                if user_type == 'farmer':
+                    user = CustomUser.objects.get(Q(username=username), roles__name='Farmer')
+                elif user_type == 'supplier':
+                    user = CustomUser.objects.get(Q(username=username), roles__name='Supplier')
+                else:
+                    return Response({'message': 'Invalid user type'}, status=status.HTTP_400_BAD_REQUEST)
+                if not user.check_phone_number(phone_number):
+                    return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
                 token, _ = Token.objects.get_or_create(user=user)
                 return Response({'token': token.key}, status=status.HTTP_200_OK)
-        return Response({'message': 'Authentication failed'}, status=status.HTTP_401_UNAUTHORIZED)
+            except CustomUser.DoesNotExist:
+                return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
+        return Response({'message': 'Invalid credentials'}, status=status.HTTP_401_UNAUTHORIZED)
 
-# The following views remain unchanged:
-# - UserRegistrationListView
-# - UserRegistrationUpdateView
-# - UserRegistrationDeleteView
 
-# from rest_framework import serializers
-# from user.models import CustomUser
-
-# class RegistrationSerializer(serializers.ModelSerializer):
-#     class Meta:
-#         model = CustomUser
-#         fields = ['id', 'username', 'phone_number', 'location']
-
-# class UserRegistrationView(generics.CreateAPIView):
-#     def post(self, request):
-#         serializer = RegistrationSerializer(data=request.data)  # Use RegistrationSerializer
-#         if serializer.is_valid():
-#             user = serializer.save()
-            
-#             farmer_role, _ = Role.objects.get_or_create(name="Farmer")
-#             user.roles.add(farmer_role)
-            
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
-
-# class SupplierRegistrationView(APIView):
-#     def post(self, request):
-#         serializer = RegistrationSerializer(data=request.data)  # Use RegistrationSerializer
-        
-#         if serializer.is_valid():
-#             user = serializer.save()
-            
-#             supplier_role, _ = Role.objects.get_or_create(name="Supplier")
-#             user.roles.add(supplier_role)
-            
-#             return Response(serializer.data, status=status.HTTP_201_CREATED)
-        
-#         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+from .serializers import UserSerializer  # Import the UserSerializer
+from users.models import CustomUser
+class UserListView(generics.ListAPIView):
+    queryset = CustomUser.objects.all()
+    serializer_class = UserSerializer  # Replace 'UserSerializer' with your serializer for the User model
+    permission_classes = [IsAuthenticated]  # Add any permissions you need
