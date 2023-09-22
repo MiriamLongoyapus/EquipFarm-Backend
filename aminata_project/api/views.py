@@ -10,12 +10,15 @@ class CatalogueListView(APIView):
         catalogue= Catalogue.objects.all()
         serializer = CatalogueSerializer(catalogue, many=True)
         return Response(serializer.data)
+
+
     def post(self,request):
         serializer=CatalogueSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data,status=status.HTTP_201_CREATED)
         return Response(serializer.errors,status=status.HTTP_400_BAD_REQUEST)
+
     
     
 class CatalogueDetailView(APIView):
@@ -45,3 +48,4 @@ class CatalogueDetailView(APIView):
         catalogue.delete()
         return Response("catalogue deleted succefully",status=status.HTTP_204_NO_CONTENT)
    
+

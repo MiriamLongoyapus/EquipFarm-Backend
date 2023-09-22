@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'rest_framework',
     'api',
     'catalogue',
-    'drf_yasg'
+    'drf_yasg',
+
     
    
     
@@ -89,6 +90,9 @@ DATABASES = {
         'HOST': 'localhost',    
         'PORT': '5432',            
     }
+
+    
+
 }
 
 # Password validation
