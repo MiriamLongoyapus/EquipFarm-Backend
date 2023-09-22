@@ -1,12 +1,17 @@
 from django.urls import path
-from .views import FarmerRegistrationView, FarmerLoginView, SupplierRegistrationView, SupplierLoginView, LoginView, UserListView
-
+from . import views
 urlpatterns = [
-    path('register/farmer/', FarmerRegistrationView.as_view(), name='farmer-registration'),
-    path('login/farmer/', FarmerLoginView.as_view(), name='farmer-login'),
-    path('register/supplier/', SupplierRegistrationView.as_view(), name='supplier-registration'),
-    path('login/supplier/', SupplierLoginView.as_view(), name='supplier-login'), 
-    path('login/<str:user_type>/', LoginView.as_view(), name='user-login'),
-    path('users/', UserListView.as_view(), name='user-list'),  
+    path('register/', views.register, name='register'),
+    path('login/', views.user_login, name='login'),
+    path('logout/', views.user_logout, name='user_logout'),
+    path('logout_all/', views.user_logout_all, name='user_logout_all'),
+    path('users/', views.UserListView.as_view(), name='user-list'),
+    path('farmers/', views.FarmerListView.as_view(), name='user-list'),
+    path('farmers/<int:id>/', views.FarmerDetailView.as_view(), name='user-list'),
+    path('users/<int:id>/', views.UserDetailView.as_view(), name='user-list'),
+    path('suppliers/', views.SupplierListView.as_view(), name='user-list'),
+    path('suppliers/<int:id>/', views.SupplierDetailView.as_view(), name='user-list'),
 
 ]
+
+
