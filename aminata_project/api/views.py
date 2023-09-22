@@ -24,17 +24,17 @@ class SupplierListView(generics.ListAPIView):
 class UserDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.filter(role='')
     serializer_class = CustomUserSerializer
-    lookup_field='id'
+    required_field='id'
 
 class SupplierDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.filter(role='supplier')
     serializer_class = CustomUserSerializer
-    lookup_field='id'
+    required_field='id'
 
 class FarmerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.filter(role="farmer")
     serializer_class = CustomUserSerializer
-    lookup_field='id'
+    required_field='id'
    
 @api_view(['POST'])
 @permission_classes([AllowAny])
