@@ -7,7 +7,6 @@ from Bookings.models import Bookings
 from .serializers import BookingsSerializer  
 from django.shortcuts import render
 
-
 class BookingsListView(APIView):
     def get(self, request):
         bookings = Bookings.objects.all()  

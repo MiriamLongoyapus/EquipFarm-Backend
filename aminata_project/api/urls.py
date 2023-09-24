@@ -6,7 +6,6 @@ from rest_framework import permissions
 from django.conf import settings
 from .views import BookingsListView, BookingsDetailView
 
-# Define the schema view for Swagger documentation
 schema_view = get_schema_view(
     openapi.Info(
         title="Catalogue",
@@ -18,12 +17,9 @@ schema_view = get_schema_view(
 
 urlpatterns = [
   
+    path('Bookings/', BookingsListView.as_view(), name='Bookings-list-view'), 
+    path('Bookings/<int:id>/', BookingsDetailView.as_view(), name='Bookings-detail-view'),  
 
-    # Your Bookings URLs
-    path('Bookings/', BookingsListView.as_view(), name='Bookings-list-view'),  # Changed the name here
-    path('Bookings/<int:id>/', BookingsDetailView.as_view(), name='Bookings-detail-view'),  # Changed the name here
-
-    # Swagger documentation
     path('document/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
 
 ]
