@@ -1,53 +1,8 @@
-from django.db import models
-
-# Create your models here.
-
-# Create your models here.
-# from django.contrib.auth.models import AbstractUser, Group, Permission
-# from django.db import models
-# from django.utils.translation import gettext_lazy as _
-# from phonenumber_field.modelfields import PhoneNumberField
-
-
-# class User(AbstractUser):
-#     phone_number =PhoneNumberField(max_length=100)
-#     # location = models.CharField(max_length=100)
-
-
-#     is_farmer = models.BooleanField(default=False)
-#     is_supplier = models.BooleanField(default=False)
-
-#     groups = models.ManyToManyField(
-#         Group,
-#         verbose_name=_('groups'),
-#         blank=True,
-#         related_name='custom_user_set',  
-#     )
-
-#     user_permissions = models.ManyToManyField(
-#         Permission,
-#         verbose_name=_('user permissions'),
-#         blank=True,
-#         related_name='custom_user_set_permissions',  
-#     )
-
-# class Farmer(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     # first_name = models.CharField(max_length=100)
-#     # last_name = models.CharField(max_length=100)
-#     # phone_number = models.CharField(max_length=100)
-    # location = models.CharField(max_length=100)
-   
-# class Supplier(models.Model):
-#     user = models.OneToOneField(User, on_delete=models.CASCADE, primary_key=True)
-#     # first_name = models.CharField(max_length=100)
-#     # last_name = models.CharField(max_length=100)
-#     # phone_number = models.CharField(max_length=100)
-    # company_name = models.CharField(max_length=100, unique=True)
 from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.utils.translation import gettext as _
 from phonenumber_field.modelfields import PhoneNumberField
+
 
 class CustomUser(AbstractUser):
     USER_ROLES = (
@@ -84,7 +39,7 @@ class Farmer(models.Model):
 
 class Supplier(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    company_name = models.CharField(max_length=110, unique=True)
+    company_name = models.CharField(max_length=100, unique=True)
 
    
     

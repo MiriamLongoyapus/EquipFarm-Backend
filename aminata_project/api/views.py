@@ -9,6 +9,7 @@ from rest_framework import generics
 
 
 
+
 class UserListView(generics.ListAPIView):
     queryset = CustomUser.objects.filter(role='')
     serializer_class = CustomUserSerializer
@@ -35,7 +36,7 @@ class FarmerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = CustomUser.objects.filter(role="farmer")
     serializer_class = CustomUserSerializer
     required_field='id'
-   
+
 @api_view(['POST'])
 @permission_classes([AllowAny])
 def register(request):
@@ -43,6 +44,8 @@ def register(request):
     if role not in ['farmer','supplier']:
         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
     serializer = None
+    user = None
+
     if role == 'farmer':
         serializer = CustomUserSerializer(data=request.data)
     elif role == 'supplier':
@@ -52,11 +55,15 @@ def register(request):
         user.set_password(request.data.get('phone_number'))
         user.save()
 
-    if role == 'farmer':
-            farmer = Farmer(user=user)
-            farmer.save()  
-        
-    return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
+        if role == 'supplier':
+                supplier = Supplier(user=user)
+                supplier.save()   
+        elif role == 'farmer':
+                farmer = Farmer(user=user)
+                farmer.save()
+
+        return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
+     
     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 

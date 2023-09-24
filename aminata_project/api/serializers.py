@@ -20,9 +20,11 @@ class CustomUserSerializer(serializers.ModelSerializer):
         fields = (
             'username',
             'first_name',
+            'last_name',
             'role',
             'groups',
             'phone_number',
+            'location',
             
         )
         extra_kwargs = {
@@ -39,13 +41,6 @@ class CustomUserSerializer(serializers.ModelSerializer):
         # user.set_password(validated_data['phone_number'])  
         user.save()
         return user
-
-
-
-
-
-
-
 
 
 class FarmerSerializer(serializers.ModelSerializer):
