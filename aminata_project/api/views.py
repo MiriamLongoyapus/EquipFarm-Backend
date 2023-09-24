@@ -91,6 +91,8 @@ def user_logout(request):
     logout(request)
     return Response({'message': 'Logged out successfully.'}, status=status.HTTP_200_OK)
 
+
+
 @api_view(['POST'])
 def user_logout_all(request):
      logout(request)
