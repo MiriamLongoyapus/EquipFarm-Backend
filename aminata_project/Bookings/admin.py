@@ -8,5 +8,5 @@ from .models import Bookings
 
 
 class BookingsAdmin(admin.ModelAdmin):
-    list_display = ( "customer_name","equipment_name", "equipment_category", "booking_date", "duration")
+    list_display = ("booking_date", "duration")
 admin.site.register(Bookings, BookingsAdmin)
