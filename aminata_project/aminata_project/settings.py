@@ -40,15 +40,10 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'register',
     'api',
-    # 'users',
     'rest_framework',
     'rest_framework.authtoken',
     'phonenumber_field',
-    'Bookings',
-    'rest_framework',
-    'drf_yasg',
-    'api',
-    'catalogue',
+    
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (

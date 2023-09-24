@@ -20,44 +20,26 @@ from django.urls import path,include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-schema_view = get_schema_view(
-    openapi.Info(
-        title="User API",
-        default_version='v1',
-        description="API documentation for managing user data",
-        title="Aminata API",
-        default_version='v1',
-        description="API documentation for the Aminata project",
-        terms_of_service="https://example.com/terms/",
-        contact=openapi.Contact(email="contact@aminata.com"),
-        license=openapi.License(name="MIT License"),
-    ),
-    public=True,
-    permission_classes=(permissions.AllowAny),
-)
+# schema_view = get_schema_view(
+#     openapi.Info(
+#         title="User API",
+#         default_version='v1',
+#         description="API documentation for managing user data",
+#         title="Aminata API",
+#         default_version='v1',
+#         description="API documentation for the Aminata project",
+#         terms_of_service="https://example.com/terms/",
+#         contact=openapi.Contact(email="contact@aminata.com"),
+#         license=openapi.License(name="MIT License"),
+#     ),
+#     public=True,
+#     permission_classes=(permissions.AllowAny),
+# )
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include('api.urls')),
-
-    # path("api/users/", include("api.urls")),
-    path('user/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('user/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
+    # path('user/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+    # path('user/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 ]
-
-    permission_classes=(permissions.AllowAny,),
-)
-from django.urls import include, path
-
-from django.urls import include, path
-
-urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('api/', include("api.urls")),
-    path('aminata/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
-    path('aminata/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
-]
-
-
-
 
 

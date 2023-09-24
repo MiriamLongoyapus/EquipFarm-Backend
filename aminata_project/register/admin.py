@@ -1,24 +1,4 @@
 from django.contrib import admin
-
-# Register your models here.
-
-# # Register your models here.
-
-# from django.contrib import admin
-# from .models import Farmer, Supplier
-
-# class FarmerAdmin(admin.ModelAdmin):
-#     list_display = ('user','first_name','last_name','phone_number', 'location')
-#     search_fields = ('first_name', 'location')
-
-# class SupplierAdmin(admin.ModelAdmin):
-#     list_display = ('user','company_name', 'first_name', 'last_name', 'phone_number')
-#     search_fields = ('first_name', 'company_name')
-
-# admin.site.register(Farmer, FarmerAdmin)
-# admin.site.register(Supplier, SupplierAdmin)
-
-from django.contrib import admin
 from django.contrib.auth.admin import UserAdmin
 from .models import CustomUser, Farmer, Supplier
 
