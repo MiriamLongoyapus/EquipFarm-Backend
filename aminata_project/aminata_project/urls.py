@@ -35,13 +35,17 @@ schema_view = get_schema_view(
 from django.urls import include, path
 
 from django.urls import include, path
+# fom django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include("api.urls")),
+    path('api/', include("cart.urls")),
     path('aminata/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('aminata/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 ]
+
 
 
 
