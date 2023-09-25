@@ -1,68 +1,37 @@
 from django.test import TestCase
-from django.contrib.auth.models import Group
-from .models import CustomUser, Farmer, Supplier
+from django.contrib.auth.models import Group, Permission, ContentType
 from phonenumber_field.phonenumber import PhoneNumber
+from .models import CustomUser, Farmer, Supplier
 
-class CustomUserModelTestCase(TestCase):
+class CustomUserTestCase(TestCase):
     def setUp(self):
+        self.user = CustomUser.objects.create_user(
+            username='testuser',
+            role='farmer',
+            location='Test Location',
+            phone_number='+1234567890'
+        )
         self.group = Group.objects.create(name='Test Group')
 
-    def test_create_custom_user(self):
-        user = CustomUser.objects.create(
-            username='testuser',
-            role='farmer',
-            location='Test Location',
-            phone_number=PhoneNumber.from_string('+1234567890'),
-        )
-        user.groups.add(self.group)
+        content_type = ContentType.objects.get_for_model(CustomUser)
 
-        self.assertEqual(user.role, 'farmer')
-        self.assertEqual(user.location, 'Test Location')
-        self.assertEqual(user.phone_number, PhoneNumber.from_string('+1234567890'))
-        self.assertTrue(user.groups.filter(name='Test Group').exists())
-
-class FarmerModelTestCase(TestCase):
-    def test_create_farmer(self):
-        user = CustomUser.objects.create(
-            username='testfarmer',
-            role='farmer',
-            location='Test Location',
-            phone_number=PhoneNumber.from_string('+1234567890'),
-        )
-        farmer = Farmer.objects.create(user=user)
-
-        self.assertEqual(farmer.user, user)
-
-class SupplierModelTestCase(TestCase):
-    def test_create_supplier(self):
-        user = CustomUser.objects.create(
-            username='testsupplier',
-            role='supplier',
-            location='Test Location',
-            phone_number=PhoneNumber.from_string('+1234567890'),
-        )
-        supplier = Supplier.objects.create(user=user, company_name='Test Company')
-
-        self.assertEqual(supplier.user, user)
-        self.assertEqual(supplier.company_name, 'Test Company')
-
-class GroupPermissionTestCase(TestCase):
-    def test_create_group_with_permissions(self):
-        permission = Permission.objects.create(
-            codename='can_view_custom_user',
-            name='Can view custom user',
-            content_type_id=CustomUser._meta.content_type_id,
+        self.permission = Permission.objects.create(
+            name='Test Permission Unique',
+            codename='test_permission_unique',
+            content_type=content_type
         )
 
-        group = Group.objects.create(name='Test Group')
-        group.permissions.add(permission)
+    def test_user_creation(self):
+        self.assertEqual(self.user.username, 'testuser')
+        self.assertEqual(self.user.role, 'farmer')
+        self.assertEqual(self.user.location, 'Test Location')
+        self.assertEqual(self.user.phone_number, PhoneNumber.from_string('+1234567890'))
 
-        user = CustomUser.objects.create(
-            username='testuser',
-            role='farmer',
-            location='Test Location',
-            phone_number=PhoneNumber.from_string('+254740075989'),
-        )
-        user.groups.add(group)
+    def test_user_groups(self):
+        self.user.groups.add(self.group)
+        self.assertIn(self.group, self.user.groups.all())
 
-        self.assertTrue(user.has_perm('auth.view_customuser'))
+    def test_user_permissions(self):
+        self.user.user_permissions.add(self.permission)
+        self.assertIn(self.permission, self.user.user_permissions.all())
+

@@ -41,31 +41,30 @@ class FarmerDetailView(generics.RetrieveUpdateDestroyAPIView):
 @permission_classes([AllowAny])
 def register(request):
     role = request.data.get('role')
-    if role not in ['farmer','supplier']:
+    if role not in ['farmer', 'supplier']:
         return Response({'message': 'Invalid role'}, status=status.HTTP_400_BAD_REQUEST)
-    serializer = None
-    user = None
 
-    if role == 'farmer':
-        serializer = CustomUserSerializer(data=request.data)
-    elif role == 'supplier':
-        serializer = CustomUserSerializer(data=request.data)
+    serializer = CustomUserSerializer(data=request.data)
     if serializer.is_valid():
         user = serializer.save()
         user.set_password(request.data.get('phone_number'))
         user.save()
 
         if role == 'supplier':
-                supplier = Supplier(user=user)
-                supplier.save()   
+            company_name = request.data.get('company_name')
+            if not company_name:
+                user.delete() 
+                return Response({'error': 'Company name cannot be empty'}, status=status.HTTP_400_BAD_REQUEST)
+
+            supplier = Supplier(user=user, company_name=company_name)
+            supplier.save()
         elif role == 'farmer':
-                farmer = Farmer(user=user)
-                farmer.save()
+            farmer = Farmer(user=user)
+            farmer.save()
 
         return Response({'message': 'Registration successful.'}, status=status.HTTP_201_CREATED)
-     
-    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+    return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
 

@@ -28,9 +28,6 @@ class CustomUser(AbstractUser):
         verbose_name='user permissions',
     )
 
-    # def __str__(self):
-    #     return self.phone_number
-
 
 class Farmer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
