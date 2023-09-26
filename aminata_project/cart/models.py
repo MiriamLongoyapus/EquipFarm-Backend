@@ -16,5 +16,10 @@ class Cart(models.Model):
 
     def total_price(self):
         return self.quantity * self.price
-
+    def calculate_total_price(cls):
+        total_price = 0
+        carts = cls.objects.all()
+        for cart in carts:
+            total_price += cart.item_total_price()
+        return total_price
       
