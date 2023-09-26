@@ -21,14 +21,14 @@ class CatalogueModelTestCase(TestCase):
         )
         self.catalogue = Catalogue.objects.create(
             name="Test Product",
-            price=100,  # Provide a valid price value here
+            price=100,  
             description="Test product description",
             category=self.category,
         )
 
     def test_catalogue_creation(self):
         self.assertEqual(self.catalogue.name, "Test Product")
-        self.assertEqual(self.catalogue.price, 100)  # Ensure the price is a valid integer
+        self.assertEqual(self.catalogue.price, 100)  
         self.assertEqual(self.catalogue.description, "Test product description")
         self.assertEqual(self.catalogue.category, self.category)
 
