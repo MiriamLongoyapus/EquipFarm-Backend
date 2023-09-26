@@ -7,8 +7,7 @@ from Rental.models import Rentals
 from .serializers import PaymentSerializer
 from .serializers import HirePurchaseSerializer
 from .serializers import RentalsSerializer
-# from datetime import date
-from datetime import date, datetime  
+
 
 
 class PaymentListView(APIView):
@@ -85,11 +84,9 @@ class HirePurchaseDetailView(APIView):
 
 class RentalListView(APIView):
     def get(self, request):
-        rentals = Rentals.objects.all()  
+        rentals = Rentals.objects.all()  # Use Rentals model
         serializer = RentalsSerializer(rentals, many=True)
         return Response(serializer.data)
-
-
 
     def post(self, request):
         serializer = RentalSerializer(data=request.data)
@@ -100,7 +97,7 @@ class RentalListView(APIView):
 
 class RentalDetailView(APIView):
     def get(self, request, pk):
-        rental = Rentals.objects.get(pk=pk)
+        rentals = Rentals.objects.get(pk=pk)
         serializer = RentalsSerializer(rental)
         return Response(serializer.data)
 
@@ -116,6 +113,3 @@ class RentalDetailView(APIView):
         rental = Rentals.objects.get(pk=pk)
         rental.delete()
         return Response("Rental deleted", status=status.HTTP_204_NO_CONTENT)
-
- 
-

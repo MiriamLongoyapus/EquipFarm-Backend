@@ -15,11 +15,4 @@ class Migration(migrations.Migration):
             name='total_rental_cost',
             field=models.DecimalField(decimal_places=2, default=0, max_digits=10),
         ),
-        migrations.AlterField(
-        model_name='Rentals',
-        name='rental_period',
-        field=models.DurationField(),  
-        ),
     ]
-
-

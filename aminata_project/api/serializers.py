@@ -3,8 +3,6 @@ from rest_framework import serializers
 from Rental.models import Rentals
 from payments.models import Payment
 from Hirepurchase.models import HirePurchase
-# from datetime import date 
-from datetime import date 
 
 
 class RentalsSerializer(serializers.ModelSerializer):

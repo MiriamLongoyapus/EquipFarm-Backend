@@ -1,5 +1,4 @@
 from django.db import models
-from datetime import date
 
 class Rentals(models.Model):
     # equipment_name = models.ForeignKey(max_length=100)
@@ -7,7 +6,6 @@ class Rentals(models.Model):
     rental_period = models.DurationField()
     date = models.DateField(auto_now_add=True)
     duration_period = models.CharField(   
-
         max_length=20,
         choices=[('week', 'Week'), ('day', ' Day')],null=True) 
     total_rental_cost = models.DecimalField(max_digits=10, decimal_places=2, default=0)
