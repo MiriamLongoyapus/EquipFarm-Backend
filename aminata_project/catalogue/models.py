@@ -4,7 +4,7 @@ from category.models import Category
 
 class Catalogue(models.Model):
         
-       name = models.CharField(max_length=32,unique=True)
+       equipment_name = models.CharField(max_length=32,unique=True)
        price = models.IntegerField()
        description = models.TextField(null=True)
        image = models.ImageField(upload_to='catalogue_images/',null=True)
