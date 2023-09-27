@@ -11,6 +11,7 @@ class Cart(models.Model):
     # equipment_name = models.ForeignKey(Catalog, on_delete=models.CASCADE)
     quantity = models.PositiveIntegerField(default=None)
     price = models.DecimalField(max_digits=10, decimal_places=2)
+
     
     
 
@@ -22,4 +23,3 @@ class Cart(models.Model):
         for cart in carts:
             total_price += cart.item_total_price()
         return total_price
-      
