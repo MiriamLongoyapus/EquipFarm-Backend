@@ -1,11 +1,11 @@
 from django.db import models
 
 class HirePurchase(models.Model):
-    # equipment_name = models.ForeignKey(max_length=120)
+    # equipment_name = models.ForeignKey(Catalog,on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     down_payment = models.DecimalField(max_digits=10, decimal_places=2)
     remaining_balance = models.DecimalField(max_digits=10, decimal_places=2)
-    installment_period = models.IntegerField()
+    installment_period = models.IntegerField() 
     date = models.DateField(auto_now_add=True)
     payment_frequency = models.CharField(
         max_length=20,
@@ -17,13 +17,13 @@ class HirePurchase(models.Model):
             installment_amount = (self.total_price - self.down_payment) / self.installment_period
             self.remaining_balance = self.total_price - self.down_payment
         elif self.payment_frequency == 'quarterly':
-            installment_amount = (self.total_price - self.down_payment) / (self.installment_period * 3)
+            installment_amount = (self.total_price - self.down_payment) / (self.installment_period / 3)
             self.remaining_balance = self.total_price - self.down_payment
         elif self.payment_frequency == 'annually':
-            installment_amount = (self.total_price - self.down_payment) / self.installment_period
+            installment_amount = (self.total_price - self.down_payment) / (self.installment_period / 2)
             self.remaining_balance = self.total_price - self.down_payment
         elif self.payment_frequency == 'semi_annually':
-            installment_amount = (self.total_price - self.down_payment) / (self.installment_period * 2)
+            installment_amount = (self.total_price - self.down_payment) / self.installment_period 
             self.remaining_balance = self.total_price - self.down_payment
         else:
             installment_amount = 0

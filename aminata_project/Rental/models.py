@@ -1,7 +1,7 @@
 from django.db import models
 
 class Rentals(models.Model):
-    # equipment_name = models.ForeignKey(max_length=100)
+    # equipment_name = models.ForeignKey(Catalog,on_delete=models.CASCADE)
     rental_price = models.DecimalField(max_digits=10, decimal_places=2)
     rental_period = models.DurationField()
     date = models.DateField(auto_now_add=True)
