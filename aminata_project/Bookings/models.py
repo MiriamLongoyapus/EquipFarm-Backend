@@ -4,7 +4,7 @@ from django.db import models
 class Bookings(models.Model):
     #customer_name = models.ForeignKey(CustomUser, on_delete=models.CASCADE)
     #equipment_name = models.ForeignKey(Catalog, on_delete=models.CASCADE)
-    # equipment_category = models.ForeignKey(EquipmentCategory,on_delete=models)
+    # equipment_category = models.ForeignKey(Category,on_delete=models)
     duration = models.DurationField()
     booking_date = models.DateField()
     
