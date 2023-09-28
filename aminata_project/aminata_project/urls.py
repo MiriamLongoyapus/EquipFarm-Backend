@@ -20,7 +20,7 @@ Including another URLconf
 
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
-#     path('api/', include('api.urls')),
+#    
 # ]
 from django.contrib import admin
 
