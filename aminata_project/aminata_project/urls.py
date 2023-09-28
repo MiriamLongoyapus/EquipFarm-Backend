@@ -23,8 +23,6 @@ Including another URLconf
 #     path('api/', include('api.urls')),
 # ]
 from django.contrib import admin
-<<<<<<< HEAD
-=======
 
 from django.urls import path, re_path, include
 from rest_framework import permissions
@@ -38,42 +36,12 @@ schema_view = get_schema_view(
         description="To help use to get the amount of money that the user has to pay with there name the amount and the payment month",
         terms_of_service="https://www.yourapi.com/terms/",
         contact=openapi.Contact(email="aminatagroup@gmail.com"),
-
->>>>>>> b9c5e9b154701015adae4cc79075dc5049d7b635
+    ))
 from django.urls import path
 from django.urls import path,include
 from drf_yasg.views import get_schema_view
 from drf_yasg import openapi
 from rest_framework import permissions
-<<<<<<< HEAD
-# schema_view = get_schema_view(
-#     openapi.Info(
-#         title="User API",
-#         default_version='v1',
-#         description="API documentation for managing user data",
-#         title="Aminata API",
-#         default_version='v1',
-#         description="API documentation for the Aminata project",
-#         terms_of_service="https://example.com/terms/",
-#         contact=openapi.Contact(email="contact@aminata.com"),
-#         license=openapi.License(name="MIT License"),
-#     ),
-#     public=True,
-#     permission_classes=(permissions.AllowAny),
-# )
-from django.urls import path, re_path, include
-from rest_framework import permissions
-from drf_yasg.views import get_schema_view
-from drf_yasg import openapi
-
-schema_view = get_schema_view(
-    openapi.Info(
-        title="Payment API",
-        default_version='v1',
-        description="To help use to get the amount of money that the user has to pay with there name the amount and the payment month",
-        terms_of_service="https://www.yourapi.com/terms/",
-        contact=openapi.Contact(email="aminatagroup@gmail.com"),
-=======
 schema_view = get_schema_view(
     openapi.Info(
         title="Aminata API",
@@ -83,15 +51,10 @@ schema_view = get_schema_view(
         contact=openapi.Contact(email="contact@aminata.com"),
         license=openapi.License(name="MIT License"),
 
->>>>>>> b9c5e9b154701015adae4cc79075dc5049d7b635
     ),
     public=True,
     permission_classes=(permissions.AllowAny,),
 )
-<<<<<<< HEAD
-=======
-
->>>>>>> b9c5e9b154701015adae4cc79075dc5049d7b635
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -115,21 +78,21 @@ urlpatterns = [
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 #     path('api/', include('api.urls')),
-# ]
-<<<<<<< HEAD
-=======
+]
 
 from django.urls import include, path
 
 from django.urls import include, path
+# fom django.contrib import admin
+from django.urls import path, include
+from django.conf import settings
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('api/', include("api.urls")),
+    path('api/', include("cart.urls")),
     path('aminata/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('aminata/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
 
->>>>>>> b9c5e9b154701015adae4cc79075dc5049d7b635
 ]
 
 
