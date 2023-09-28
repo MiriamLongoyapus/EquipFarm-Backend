@@ -41,6 +41,8 @@ INSTALLED_APPS = [
     'register',
     'api',
     'rest_framework',
+    'catalogue',
+    'cart'
     'rest_framework.authtoken',
     'phonenumber_field',
     'rest_framework_simplejwt.token_blacklist',
@@ -182,7 +184,8 @@ INSTALLED_APPS = [
     'payments',
     'Hirepurchase',
     'register',
-    'Rental',  
+    'Rental', 
+    'cart', 
 
     'catalogue',
 
@@ -236,13 +239,15 @@ WSGI_APPLICATION = 'aminata_project.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aminata_group_project',         
-        'USER': 'aminata_user',      
-        'PASSWORD': 'aminata_254', 
+        'NAME': 'aminata_equip',         
+        'USER': 'aminatagrp',      
+        'PASSWORD': 'aminata', 
         'HOST': 'localhost',    
         'PORT': '5432',            
     }
 }
+
+# there is role aminatagroup
 
 
 
