@@ -27,6 +27,10 @@ class CustomUser(AbstractUser):
         help_text='Specific permissions for this user.',
         verbose_name='user permissions',
     )
+    class Meta:
+        app_label = 'register'
+
+
 
 
 class Farmer(models.Model):
@@ -38,5 +42,4 @@ class Supplier(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     company_name = models.CharField(max_length=100, unique=True)
 
-   
-    
+ 

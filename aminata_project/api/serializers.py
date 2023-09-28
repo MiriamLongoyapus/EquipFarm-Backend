@@ -1,6 +1,9 @@
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
 from register.models import CustomUser, Farmer, Supplier
+from Rental.models import Rentals
+from payments.models import Payment
+from Hirepurchase.models import HirePurchase
 
 class PermissionSerializer(serializers.ModelSerializer):
     class Meta:
@@ -50,8 +53,28 @@ class FarmerSerializer(serializers.ModelSerializer):
 
 
 class SupplierSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rentals
+        fields = '__all__'
+ 
+
+
+class RentalsSerializer(serializers.ModelSerializer):
+
+    class Meta:
+        model = Rentals
+        fields = '__all__'
+
+class HirePurchaseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = HirePurchase
+        fields = '__all__'
+
+class PaymentSerializer(serializers.ModelSerializer):
     class Meta:
         model = Supplier
+        model = Payment
         fields = '__all__'
 
 
