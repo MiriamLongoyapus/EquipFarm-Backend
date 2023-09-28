@@ -46,6 +46,9 @@ INSTALLED_APPS = [
     'rest_framework.authtoken',
     'phonenumber_field',
     'rest_framework_simplejwt.token_blacklist',
+    'drf_yasg',
+    'api',
+    
 ]
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (

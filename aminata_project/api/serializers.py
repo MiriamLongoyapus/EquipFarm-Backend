@@ -1,3 +1,4 @@
+
 from rest_framework import serializers
 from django.contrib.auth.models import Group, Permission
 from register.models import CustomUser, Farmer, Supplier
@@ -76,5 +77,6 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Supplier
         model = Payment
         fields = '__all__'
+
 
 

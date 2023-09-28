@@ -1,7 +1,14 @@
+from django.urls import path, include
 
 from django.urls import path
 from . import views
 urlpatterns = [
+  
+    path('Bookings/', BookingsListView.as_view(), name='Bookings-list-view'), 
+    path('Bookings/<int:id>/', BookingsDetailView.as_view(), name='Bookings-detail-view'),  
+
+    path('document/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
+
     path('payments/', views.PaymentListView.as_view(), name='payment-list'),
     path('payments/<int:pk>/', views.PaymentDetailView.as_view(), name='payment-detail'),
     path('register/', views.register, name='register'),
@@ -19,3 +26,11 @@ urlpatterns = [
     path('rentals/', views.RentalListView.as_view(), name='rental-list'),
     path('rentals/<int:pk>/', views.RentalDetailView.as_view(), name='rental-detail'),
 ]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+
+
+
+

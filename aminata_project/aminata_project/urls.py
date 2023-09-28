@@ -19,8 +19,8 @@ Including another URLconf
 # from django.urls import path,include
 
 # urlpatterns = [
-#     path('admin/', admin.site.urls),
-#     path('api/', include('api.urls')),
+#    
+#    
 # ]
 from django.contrib import admin
 
@@ -63,13 +63,12 @@ urlpatterns = [
     # path('user/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
     path('api/', include('api.urls')),
     # path('payments/',include('payments.urls')),
-    
-    
-    re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
+]
+re_path(r'^swagger(?P<format>\.json|\.yaml)$', schema_view.without_ui(cache_timeout=0),
             name='schema-json'),
-    path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
+path('swagger/', schema_view.with_ui('swagger', cache_timeout=0),
          name='schema-swagger-ui'),
-    path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
+path('redoc/', schema_view.with_ui('redoc', cache_timeout=0),
          name='schema-redoc'),
 
 # from django.urls import path
@@ -78,7 +77,7 @@ urlpatterns = [
 # urlpatterns = [
 #     path('admin/', admin.site.urls),
 #     path('api/', include('api.urls')),
-]
+
 
 from django.urls import include, path
 
