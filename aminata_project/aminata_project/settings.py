@@ -183,6 +183,12 @@ INSTALLED_APPS = [
     'Hirepurchase',
     'register',
     'Rental',  
+<<<<<<< HEAD
+=======
+
+    'catalogue',
+
+>>>>>>> b9c5e9b154701015adae4cc79075dc5049d7b635
 ]
 
 MIDDLEWARE = [
