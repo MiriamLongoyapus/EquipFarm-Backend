@@ -27,3 +27,7 @@ class Category(models.Model):
     def __str__(self):  
      return self.get_dairy_display() if self.dairy else (self.get_farm_display() if self.farm else self.get_poultry_display())
  
+
+    class Meta:
+       app_label = 'category'
+
