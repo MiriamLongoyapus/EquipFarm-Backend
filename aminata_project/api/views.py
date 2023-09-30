@@ -12,8 +12,13 @@ from rest_framework.decorators import api_view, permission_classes
 from rest_framework.permissions import AllowAny, IsAuthenticated
 from django.contrib.auth import authenticate, login, logout
 from register.models import CustomUser, Farmer, Supplier
-from .serializers import CustomUserSerializer, FarmerSerializer, SupplierSerializer
+from .serializers import CustomUserSerializer, FarmerSerializer, SupplierSerializer,BookingsSerializer
 from rest_framework import generics
+from Bookings.models import Bookings
+# from .serializers import BookingsSerializer 
+from rest_framework import serializers
+# from .models import Bookings
+
 
 class PaymentListView(APIView):
     def get(self, request):
@@ -214,14 +219,18 @@ from rest_framework.response import Response
 from rest_framework.views import APIView
 from Bookings.models import Bookings
 from rest_framework import status
-from .serializers import BookingSerializer
+# from .serializers import BookingSerializer
+from rest_framework import serializers
+
+
 class BookingListView(APIView):
     def get(self, request):
         bookings = Bookings.objects.all()
-        serializer = BookingSerializer(bookings, many=True)
+        serializer = BookingsSerializer(bookings, many=True)
         return Response(serializer.data)
+
     def post(self, request):
-        serializer = BookingSerializer(data=request.data)
+        serializer = BookingsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -232,14 +241,14 @@ class BookingDetailView(APIView):
             booking = Bookings.objects.get(id=id)
         except Bookings.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = BookingSerializer(booking)
+        serializer = BookingsSerializer(booking)
         return Response(serializer.data)
     def put(self, request, id, format=None):
         try:
             booking = Bookings.objects.get(id=id)
         except Bookings.DoesNotExist:
             return Response(status=status.HTTP_404_NOT_FOUND)
-        serializer = BookingSerializer(booking, data=request.data)
+        serializer = BookingsSerializer(booking, data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
@@ -254,12 +263,12 @@ class BookingDetailView(APIView):
 
 
 # serializers.py
-from rest_framework import serializers
-from Bookings.models import Bookings
-class BookingSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = Bookings
-        fields = '_all_'
+# from rest_framework import serializers
+# from Bookings.models import Bookings
+# class BookingSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Bookings
+#         fields = '_all_'
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -302,6 +311,7 @@ class CatalogueDetailView(APIView):
             return Response(status=status.HTTP_404_NOT_FOUND)
         catalogue_item.delete()
         return Response("Catalogue item deleted", status=status.HTTP_204_NO_CONTENT)
+
 
 
 

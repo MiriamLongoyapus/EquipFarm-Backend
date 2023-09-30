@@ -82,13 +82,21 @@ class PaymentSerializer(serializers.ModelSerializer):
         fields = '__all__'
 
 
-class BookingSerializer(serializers.ModelSerializer):
+
+# class BookingSerializer(serializers.ModelSerializer):
+#     class Meta:
+#         model = Bookings
+#         fields = "__all__"
+
+
+
+class BookingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookings
-        fields = '_all_'
+        fields = ("customer_name","equipment_name","booking_date","duration","equipment_category","id")
 
-from rest_framework import serializers
+
 class CatalogueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catalogue
-        fields = '_all_'        
+        fields = '__all__'        

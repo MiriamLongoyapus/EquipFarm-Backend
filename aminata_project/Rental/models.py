@@ -12,13 +12,11 @@ class Rentals(models.Model):
 
     def calculate_total_cost(self):
         if self.duration_period == 'week':
-            self.total_rental_cost = self.rental_price * self.rental_period
+            self.total_rental_cost = Decimal(self.rental_price) * (self.rental_period.days / 7)
         elif self.duration_period == 'day':
-
-            self.total_rental_cost = self.rental_price * self.rental_period
+            self.total_rental_cost = Decimal(self.rental_price) * self.rental_period.days
         else:
-            self.total_rental_cost = 0  
-
+            self.total_rental_cost = Decimal(0)
     def save(self, *args, **kwargs):
         self.calculate_total_cost()
         super().save(*args, **kwargs)
