@@ -237,12 +237,12 @@ WSGI_APPLICATION = 'aminata_project.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aminata_project',         
-        'USER': 'aminata',      
-        'PASSWORD': 'aminata254', 
-        'HOST': 'localhost',    
-        'PORT': '5432',            
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': 'sqlite3.db',         
+        'USER': '',      
+        'PASSWORD': '', 
+        'HOST': '',    
+        'PORT': '',            
     }
 }
 
