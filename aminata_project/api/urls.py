@@ -4,12 +4,6 @@ from django.urls import path
 from django.conf import settings
 from drf_yasg.views import get_schema_view
 
-# from .views import PaymentListView
-# from .views import PaymentDetailView
-# from .views import register
-# from .views import login
-# from .views import FarmerDetailView
-# from .views importf FarmerListView
 
 from .import views
 urlpatterns = [
@@ -36,10 +30,13 @@ urlpatterns = [
     path('rentals/', views.RentalListView.as_view(), name='rental-list'),
     path('rentals/<int:pk>/', views.RentalDetailView.as_view(), name='rental-detail'),
     path('Bookings/', views.BookingListView.as_view(), name='Bookings-list'),
-    # path('Bookings/', views.BookingDetailView.as_view(), name='Bookings-list'),
     path('catalogue/', views.CatalogueListView.as_view(), name='catalogue-list'),
     path('catalogue/<int:id>/', views.CatalogueDetailView.as_view(), name='catalogue-list'),
     path('Booking/<int:id>/', views.BookingDetailView.as_view(), name='Booking-detail'),
+    path('category/<int:id>/', views.CategoryDetailView.as_view(), name='category-list'),
+    path('category/', views.CategoryListView.as_view(), name='category-list'),
+
+
 
 
 

@@ -6,6 +6,7 @@ from payments.models import Payment
 from Hirepurchase.models import HirePurchase
 from Bookings.models import Bookings
 from catalogue.models import Catalogue
+from category.models import Category
 
 
 
@@ -100,3 +101,9 @@ class CatalogueSerializer(serializers.ModelSerializer):
     class Meta:
         model = Catalogue
         fields = '__all__'        
+
+
+class CategorySerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Category
+        fields = '__all__'  

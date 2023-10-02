@@ -93,6 +93,7 @@ urlpatterns = [
 
     path('aminata/swagger/', schema_view.with_ui('swagger', cache_timeout=0), name='schema-swagger-ui'),
     path('aminata/redoc/', schema_view.with_ui('redoc', cache_timeout=0), name='schema-redoc-ui'),
+    path('MpesaDaraja', include("MpesaDaraja.urls"))
 
 ]
 

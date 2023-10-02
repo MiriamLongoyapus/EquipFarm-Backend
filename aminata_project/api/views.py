@@ -313,6 +313,53 @@ class CatalogueDetailView(APIView):
         return Response("Catalogue item deleted", status=status.HTTP_204_NO_CONTENT)
 
 
+from rest_framework.response import Response
+from rest_framework.views import APIView
+from category.models import Category  # Import Category model
+from rest_framework import status
+from .serializers import CategorySerializer  # Import appropriate serializer
+
+class CategoryListView(APIView):
+    def get(self, request):
+        categories = Category.objects.all()
+        serializer = CategorySerializer(categories, many=True)
+        return Response(serializer.data)
+
+    def post(self, request):
+        serializer = CategorySerializer(data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+class CategoryDetailView(APIView):
+    def get(self, request, id, format=None):
+        try:
+            category = Category.objects.get(id=id)
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = CategorySerializer(category)
+        return Response(serializer.data)
+
+    def put(self, request, id, format=None):
+        try:
+            category = Category.objects.get(id=id)
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        serializer = CategorySerializer(category, data=request.data)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data, status=status.HTTP_200_OK)  # Use HTTP_200_OK for updates
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+    def delete(self, request, id, format=None):
+        try:
+            category = Category.objects.get(id=id)
+        except Category.DoesNotExist:
+            return Response(status=status.HTTP_404_NOT_FOUND)
+        category.delete()
+        return Response("Category deleted", status=status.HTTP_204_NO_CONTENT)
+
 
 
 
