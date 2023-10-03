@@ -89,17 +89,17 @@ WSGI_APPLICATION = 'aminata_project.wsgi.application'
 # https://docs.djangoproject.com/en/4.2/ref/settings/#databases
 from decouple import config
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'aminata_project',         
-        'USER': 'aminata',      
-        'PASSWORD': 'aminata254', 
-        'HOST': 'localhost',    
-        'PORT': '5432',            
-    } 
-}
-# DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'aminata_project',         
+#         'USER': 'aminata',      
+#         'PASSWORD': 'aminata254', 
+#         'HOST': 'localhost',    
+#         'PORT': '5432',            
+#     } 
+# }
+DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
