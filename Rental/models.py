@@ -1,7 +1,8 @@
 from django.db import models
+from catalogue.models import Catalogue
 
 class Rentals(models.Model):
-    # equipment_name = models.ForeignKey(Catalog,on_delete=models.CASCADE)
+    equipment_name = models.ForeignKey(Catalogue,on_delete=models.CASCADE)
     rental_price = models.DecimalField(max_digits=10, decimal_places=2)
     rental_period = models.DurationField()
     date = models.DateField(auto_now_add=True)
@@ -21,7 +22,7 @@ class Rentals(models.Model):
         self.calculate_total_cost()
         super().save(*args, **kwargs)
 
-    # def __str__(self):
-    #     return f'Rental for {self.equipment_name}'
+    def __str__(self):
+        return f'Rental for {self.equipment_name}'
 
 

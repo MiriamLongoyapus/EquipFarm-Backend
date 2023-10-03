@@ -1,7 +1,9 @@
 from django.db import models
 from decimal import Decimal
+from catalogue.models import Catalogue
+
 class HirePurchase(models.Model):
-    # equipment_name = models.ForeignKey(Catalog,on_delete=models.CASCADE)
+    equipment_name = models.ForeignKey(Catalogue,on_delete=models.CASCADE)
     total_price = models.DecimalField(max_digits=10, decimal_places=2)
     down_payment = models.DecimalField(max_digits=10, decimal_places=2)
     remaining_balance = models.DecimalField(max_digits=10, decimal_places=2)
