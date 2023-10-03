@@ -1,10 +1,10 @@
 from django.shortcuts import render
 
-# Create your views here.
+
 from rest_framework.response import Response
 from rest_framework.views import APIView
   
-from .models import Cart  # Assuming you have a Cart model
+from .models import Cart  
 from rest_framework import status
 from .serializers import CartSerializer
 
