@@ -7,9 +7,6 @@ from rest_framework.views import APIView
 from .models import Cart  
 from rest_framework import status
 from .serializers import CartSerializer
-
-
-
 class CartListView(APIView):
     def get(self, request):
         carts = Cart.objects.all()
