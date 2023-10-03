@@ -92,21 +92,6 @@ from decouple import config
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': 'aminata_equip',         
-#         'USER': 'aminatagrp',      
-#         'PASSWORD': 'aminata', 
-#         'HOST': 'localhost',    
-#         'PORT': '5432',            
-#     }
-
-    
-
-# }
-
-
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
 #         'NAME': 'aminata_project',         
 #         'USER': 'aminata',      
 #         'PASSWORD': 'aminata254', 
@@ -114,7 +99,7 @@ from decouple import config
 #         'PORT': '5432',            
 #     }
 # }
-DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
+# DATABASES = {'defat': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.2/ref/settings/#auth-password-validators
