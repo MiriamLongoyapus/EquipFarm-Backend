@@ -97,7 +97,7 @@ from decouple import config
 #         'PASSWORD': 'aminata254', 
 #         'HOST': 'localhost',    
 #         'PORT': '5432',            
-#     }
+#     } 
 # }
 DATABASES = {'default': dj_database_url.config(default=os.environ.get('DATABASE_URL'))}
 
