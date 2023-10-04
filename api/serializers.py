@@ -81,13 +81,7 @@ class PaymentSerializer(serializers.ModelSerializer):
         model = Supplier
         model = Payment
         fields = '__all__'
-
-
-
-
-
-
-
+        
 class BookingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookings
