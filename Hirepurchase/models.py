@@ -52,5 +52,3 @@ def calculate_installment_and_balance(self):
 
 
 
-    return installment_amount
-

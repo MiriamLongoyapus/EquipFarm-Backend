@@ -10,4 +10,7 @@ class Payment(models.Model):
         choices=[('Rental', 'Rental'), ('HirePurchase', 'HirePurchase'), ('Buy', 'Buy')],
         null=True
     )
+
+    def __str__(self):
+        return f'Payment for {self.equipment_name}'
   
