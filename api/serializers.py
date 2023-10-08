@@ -46,7 +46,7 @@ class CustomUserSerializer(serializers.ModelSerializer):
             raise serializers.ValidationError("Phone number do not match")
 
         user = CustomUser.objects.create(**validated_data)
-        # user.set_password(validated_data['phone_number'  
+        # user.set_password(validated_data['phone_number  
         user.save()
         return user
 
