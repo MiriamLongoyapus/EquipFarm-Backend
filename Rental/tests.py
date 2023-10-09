@@ -46,3 +46,10 @@ class RentalsModelTests(TestCase):
         rental = Rentals(equipment_name="Laptop")
         expected_str = f"Rental for {rental.equipment_name}"
         self.assertEqual(str(rental), expected_str)
+    
+    
+    # def test_str_representation(self):
+    #     rental = Rentals(equipment_name="Laptop")
+    #     expected_str = f"Rental for {rental.equipment_name}"
+    #     self.assertEqual(str(rental), expected_str)
+  
