@@ -93,17 +93,7 @@ import os
 
 
 
-# DATABASES = {
-#         "default": {
-#             "ENGINE": "django.db.backends.postgresql",
-#             "NAME": config("DB_NAME"),
-#             "USER": config("DB_USER"),
-#             "PASSWORD": config("DB_PASSWORD"),
-#             "HOST": config("DB_HOST"),
-#             "PORT": "",
-#         }
-#     }
-    
+
 
 DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
@@ -150,5 +140,5 @@ STATIC_URL = 'static/'
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Heroku settings.
-# import django_heroku
-# django_heroku.settings(locals())
+import django_heroku
+django_heroku.settings(locals())
