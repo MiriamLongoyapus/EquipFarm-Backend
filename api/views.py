@@ -124,7 +124,7 @@ class RentalDetailView(APIView):
     def delete(self, request, pk):
         rental = Rentals.objects.get(pk=pk)
         rental.delete()
-        return Response({"message":"Deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+        return Response({"message":"Deleted successfully"})
 
 
 class UserListView(generics.ListAPIView):
