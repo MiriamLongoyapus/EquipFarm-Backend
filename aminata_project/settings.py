@@ -15,7 +15,10 @@ SECRET_KEY = 'django-insecure-s*p3zi^tlq6tmp6nw)w_q&=o=q4h=o3yj5s670^33@i0s^+7mg
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+
+ALLOWED_HOSTS = ['127.0.01-341d-41-80-116-99.ngrok.io'                           
+                          
+]
 
 CORS_ALLOW_ALL_ORIGINS=True
 
@@ -92,10 +95,19 @@ from decouple import config
 import os
 
 
+DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "NAME": config("DB_NAME"),
+            "USER": config("DB_USER"),
+            "PASSWORD": config("DB_PASSWORD"),
+            "HOST": config("DB_HOST"),
+            "PORT": "",
+        }
+    }
 
 
-
-DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
+# DATABASES = {"default": dj_database_url.config(default=os.environ.get("DATABASE_URL"))}
 
 
 
@@ -142,3 +154,6 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 # Heroku settings.
 import django_heroku
 django_heroku.settings(locals())
+# SECURITY WARNING: don't run with debug turned on in production!
+DEBUG = True
+# Africa's Talking webhook URL to ALLOWED_HOSTS

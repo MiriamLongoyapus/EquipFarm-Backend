@@ -100,7 +100,7 @@ class RentalListView(APIView):
         return Response(serializer.data)
 
     def post(self, request):
-        serializer = RentalSerializer(data=request.data)
+        serializer = RentalsSerializer(data=request.data)
         if serializer.is_valid():
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
