@@ -70,7 +70,8 @@ class HirePurchaseDetailView(APIView):
         try:
             return HirePurchase.objects.get(pk=pk)
         except HirePurchase.DoesNotExist:
-            raise Http404
+            return Response({"error":"Not found"}, status=status.HTTP_201_CREATED)
+
 
 
     def get(self, request, pk, format=None):
@@ -109,11 +110,11 @@ class RentalListView(APIView):
 class RentalDetailView(APIView):
     def get(self, request, pk):
         rentals = Rentals.objects.get(pk=pk)
-        serializer = RentalsSerializer(rental)
+        serializer = RentalsSerializer(rentals)
         return Response(serializer.data)
 
     def put(self, request, pk):
-        rental = Rental.objects.get(pk=pk)
+        rental = Rentals.objects.get(pk=pk)
         serializer = RentalsSerializer(rental, data=request.data)
         if serializer.is_valid():
             serializer.save()
