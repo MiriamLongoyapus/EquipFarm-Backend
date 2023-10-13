@@ -90,7 +90,7 @@ class HirePurchaseDetailView(APIView):
     def delete(self, request, pk, format=None):
         hire_purchase = self.get_object(pk)
         hire_purchase.delete()
-        return Response("HirePurchase deleted", status=status.HTTP_204_NO_CONTENT)
+        return Response({"message":"Deleted successfully"})
 
 
 
