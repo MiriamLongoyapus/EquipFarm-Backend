@@ -30,12 +30,10 @@ class CustomUser(AbstractUser):
         app_label = 'register'
 
 
-
-
 class Farmer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-   
-
+    
+    
 
 class Supplier(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)

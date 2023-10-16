@@ -1,7 +1,11 @@
 from django.contrib import admin
 from .models import Catalogue
 
-admin.site.register(Catalogue)
+class CatalogueAdmin(admin.ModelAdmin):
+    list_display=('image',)
+    
+    
+admin.site.register(Catalogue,CatalogueAdmin)
 
 
 

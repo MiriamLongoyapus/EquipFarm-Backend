@@ -1,6 +1,7 @@
 from django.db import models
 
 class Bookings(models.Model):
+    image = models.ImageField(upload_to='images/', default='images/default.jpg')
     duration = models.DurationField()
     booking_date = models.DateField()
     customer_name = models.CharField(max_length=255, default='Customer')
@@ -9,6 +10,17 @@ class Bookings(models.Model):
     booking_date = models.DateTimeField()
   
   
+  
+
+
+
+
+
+
+
+
+
+
 
 
 

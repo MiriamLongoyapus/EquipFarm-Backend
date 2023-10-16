@@ -128,7 +128,7 @@ class RentalDetailView(APIView):
 
 
 class UserListView(generics.ListAPIView):
-    queryset = CustomUser.objects.filter(role='')
+    queryset = CustomUser.objects.all()
     serializer_class = CustomUserSerializer
 
 class FarmerListView(generics.ListAPIView):
