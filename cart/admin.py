@@ -3,7 +3,7 @@ from django.contrib import admin
 from .models import Cart
 
 class CartAdmin(admin.ModelAdmin):
-    list_display = ( 'created_at', 'quantity', 'price', 'total_price')
+    list_display = ( 'user', 'purchase_option', 'created_at', 'quantity', 'is_added')
     
     search_fields = ('equipment_name', 'user__username')  
 

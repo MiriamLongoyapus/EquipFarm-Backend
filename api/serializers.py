@@ -85,7 +85,7 @@ class PaymentSerializer(serializers.ModelSerializer):
 class BookingsSerializer(serializers.ModelSerializer):
     class Meta:
         model = Bookings
-        fields = ("customer_name","equipment_name","booking_date","duration","equipment_category","id")
+        fields = ("image","customer_name","equipment_name","booking_date","duration","equipment_category","id")
 
 
 class CatalogueSerializer(serializers.ModelSerializer):

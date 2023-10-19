@@ -2,7 +2,6 @@ from django.contrib.auth.models import AbstractUser, Group
 from django.db import models
 from django.utils.translation import gettext as _
 
-
 class CustomUser(AbstractUser):
     USER_ROLES = (
         ('farmer', 'Farmer'),
@@ -28,13 +27,14 @@ class CustomUser(AbstractUser):
     )
     class Meta:
         app_label = 'register'
+    
 
 
 class Farmer(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
-    
-    
 
+    
+    
 class Supplier(models.Model):
     user = models.OneToOneField(CustomUser, on_delete=models.CASCADE, primary_key=True)
     company_name = models.CharField(max_length=100, unique=True)
