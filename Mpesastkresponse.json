@@ -1,0 +1,96 @@
+{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "25067-5181784-1",
+            "CheckoutRequestID": "ws_CO_20102023232959891726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "29616-376484558-1",
+            "CheckoutRequestID": "ws_CO_20102023233139691726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "20506-31785063-2",
+            "CheckoutRequestID": "ws_CO_20102023234210377726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "54930-31797686-1",
+            "CheckoutRequestID": "ws_CO_20102023234719752726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "15770-31905690-1",
+            "CheckoutRequestID": "ws_CO_21102023002125060726794700",
+            "ResultCode": 1032,
+            "ResultDesc": "Request cancelled by user"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "20500-31864130-1",
+            "CheckoutRequestID": "ws_CO_21102023003709212726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "22572-47179005-1",
+            "CheckoutRequestID": "ws_CO_21102023003750514726794700",
+            "ResultCode": 1037,
+            "ResultDesc": "DS timeout user cannot be reached"
+        }
+    }
+}{
+    "Body": {
+        "stkCallback": {
+            "MerchantRequestID": "92642-166710864-1",
+            "CheckoutRequestID": "ws_CO_21102023003710361726794700",
+            "ResultCode": 0,
+            "ResultDesc": "The service request is processed successfully.",
+            "CallbackMetadata": {
+                "Item": [
+                    {
+                        "Name": "Amount",
+                        "Value": 1.0
+                    },
+                    {
+                        "Name": "MpesaReceiptNumber",
+                        "Value": "RJL7317C8L"
+                    },
+                    {
+                        "Name": "Balance"
+                    },
+                    {
+                        "Name": "TransactionDate",
+                        "Value": 20231021003553
+                    },
+                    {
+                        "Name": "PhoneNumber",
+                        "Value": 254726794700
+                    }
+                ]
+            }
+        }
+    }
+}

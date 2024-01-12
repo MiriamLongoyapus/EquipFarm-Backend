@@ -1,6 +1,5 @@
 
 
-
 import requests
 from django.http import JsonResponse
 from decouple import config
@@ -18,6 +17,7 @@ def get_access_token(request):
         return JsonResponse({'access_token': access_token})
     except requests.exceptions.RequestException as e:
         return JsonResponse({'error': str(e)})
+
 
 
 

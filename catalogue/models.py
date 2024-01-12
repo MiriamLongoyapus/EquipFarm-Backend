@@ -14,7 +14,7 @@ class Catalogue(models.Model):
     def check_availability(self):
         return self.is_available
 
-    def increment_stock(self, quantity):
+    def increment_stock(self, quantity):    
         if quantity > 0:
             self.in_stock += quantity
             self.save()
